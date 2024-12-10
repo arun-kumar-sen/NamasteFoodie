@@ -46,10 +46,12 @@ const Body = () => {
   }, []);
 
   const handleFilter = () => {
-    const topRatedRest = listOfRestaurants.filter(
-      (res, i) => res.info.avgRating > 4.2
+    alert("k");
+    const topRatedRest = listOfRestaurants?.filter(
+      (res, i) => res?.info?.avgRating > 4.2
     );
-    setListOfRestaurants(topRatedRest); // this setter function will trigger the diff algo & find diff between virtual DOMs
+    console.log(topRatedRest);
+    setFilteredState(topRatedRest); // this setter function will trigger the diff algo & find diff between virtual DOMs
   };
 
   return listOfRestaurants?.length === 0 ? (
