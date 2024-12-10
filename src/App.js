@@ -1,13 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
-import Body from "./components/Body";
+import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
-import About from "./components/About";
 
 export const App = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
+      {/* {this outlet will be replaed by the children component in App depending on the path} */}
+      <Outlet />
+      {/* <Body /> */}
     </div>
   );
 };
