@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   // const [listOfRestaurants, setListOfRestaurants] = useState(resList);
@@ -20,18 +21,22 @@ const Body = () => {
 
     //"https://api.allorigins.win/raw?url=" + (used for CORS issue)
     const data = await fetch(
-      // "https://api.allorigins.win/raw?url=" +
-      // encodeURIComponent(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      // )
+      "https://api.allorigins.win/raw?url=" +
+        encodeURIComponent(
+          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        )
     );
-
     const json = await data.json();
     setListOfRestaurants(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredState(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    console.log(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants,
+      "called"
     );
   };
 
@@ -47,7 +52,7 @@ const Body = () => {
     setListOfRestaurants(topRatedRest); // this setter function will trigger the diff algo & find diff between virtual DOMs
   };
 
-  return listOfRestaurants.length === 0 ? (
+  return listOfRestaurants?.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -63,7 +68,7 @@ const Body = () => {
           />
           <button
             onClick={() => {
-              const filteredRest = listOfRestaurants.filter((card, i) =>
+              const filteredRest = listOfRestaurants?.filter((card, i) =>
                 card?.info?.name
                   ?.toLowerCase()
                   .includes(searchText.toLowerCase())
@@ -81,8 +86,13 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredState.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+        {filteredState?.map((restaurant) => (
+          <Link
+            key={restaurant.info.id}
+            to={"/restaurant/" + restaurant.info.id}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>

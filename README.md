@@ -62,3 +62,14 @@ DIFF algo = finds difference between two virtual DOMs (updated virtual DOM and p
 ### \*\* Whenever a state variable (we update it by using setter function ex: setData() from useState()) updates react re-renders a component
 
 ### createBrowserRouter is recommended for react (in documentation )
+
+### 2 types of routing in webapps
+
+1-> Client Side Routing (no network call , already all components are there , no page reloads also SPA)
+2-> Server Side Routing (page reloads , i.e make network calls and html comes from server)
+
+### Steps for Routing
+
+1-> Inside index.js component ,
+const appRoute = createBrowserRouter([{path:"/",element:<App/>,children:[{path:"/1",element:<Comp1/>},{path:"/1",element:<Comp1/>},{path:"/1",element:<Comp1/>}],errorElement:<Error/>)
+2-> indide render (RouteProvider router={appRoute})
