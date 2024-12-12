@@ -73,3 +73,21 @@ DIFF algo = finds difference between two virtual DOMs (updated virtual DOM and p
 1-> Inside index.js component ,
 const appRoute = createBrowserRouter([{path:"/",element:<App/>,children:[{path:"/1",element:<Comp1/>},{path:"/1",element:<Comp1/>},{path:"/1",element:<Comp1/>}],errorElement:<Error/>)
 2-> indide render (RouteProvider router={appRoute})
+
+#### How react works in steps is what i have written below
+
+\*\*\*MOUNTING LIFECYCLE
+
+constructor (dummy)
+Render (dummy data)
+
+<HTML renders with dummy data>
+componentDidMount (API call is made )
+this.setState (state is updated so render in update cycle starts)
+
+\*\*\*UPDATE CYCLE
+
+Render(API data)
+
+<HTML renders with new API data>
+componentDidUpdate
