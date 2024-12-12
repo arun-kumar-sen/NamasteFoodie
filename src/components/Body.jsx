@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   // const [listOfRestaurants, setListOfRestaurants] = useState(resList);
@@ -15,6 +16,8 @@ const Body = () => {
   const [filteredState, setFilteredState] = useState([]);
 
   const [searchText, setSearchText] = useState("");
+
+  const isOnline = useOnlineStatus();
 
   const fetchData = async () => {
     // fetch(): super power JS engine has, it will fecth data from API
@@ -33,11 +36,6 @@ const Body = () => {
     setFilteredState(
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-    console.log(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants,
-      "called"
-    );
   };
 
   // Loads => Render(Skeleton) => API => Re-render
@@ -46,13 +44,16 @@ const Body = () => {
   }, []);
 
   const handleFilter = () => {
-    alert("k");
     const topRatedRest = listOfRestaurants?.filter(
       (res, i) => res?.info?.avgRating > 4.2
     );
     console.log(topRatedRest);
     setFilteredState(topRatedRest); // this setter function will trigger the diff algo & find diff between virtual DOMs
   };
+
+  if (!isOnline) {
+    return <h1>Looks like you are offline!!! check your internet</h1>;
+  }
 
   return listOfRestaurants?.length === 0 ? (
     <Shimmer />

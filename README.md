@@ -91,3 +91,14 @@ Render(API data)
 
 <HTML renders with new API data>
 componentDidUpdate
+
+### Optimisation Concept
+
+-> Single Responsibility Principle (more resusable , testable , maintable)
+-> Custom hooks
+
+### LazyLoading == Chunking == code splitting == Dynamic bundling == ondemand loading == dynamic import
+
+It will create a separate bundles for the lazy loaded components:
+Ex: In our code we see different bundles for About & Grocery
+![alt text](image.png)
