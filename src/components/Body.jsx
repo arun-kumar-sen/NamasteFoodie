@@ -26,15 +26,15 @@ const Body = () => {
     const data = await fetch(
       "https://api.allorigins.win/raw?url=" +
         encodeURIComponent(
-          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9452387&lng=77.7115841&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         )
     );
     const json = await data.json();
     setListOfRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredState(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -59,17 +59,18 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex">
+        <div className="m-4 p-4">
           <input
-            className="search-box"
-            type="search"
+            className="border border-solid border-black"
+            type="text"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="px-4 py-1 border border-spacing-2 bg-green-100 m-2 rounded-md"
             onClick={() => {
               const filteredRest = listOfRestaurants?.filter((card, i) =>
                 card?.info?.name
@@ -84,11 +85,16 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button onClick={handleFilter} className="filter-btn">
-          Top Rated Restaurants
-        </button>
+        <div className="m-4 p-4 flex items-center">
+          <button
+            onClick={handleFilter}
+            className="px-4  border border-spacing-2 bg-green-100 rounded-md "
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredState?.map((restaurant) => (
           <Link
             key={restaurant.info.id}

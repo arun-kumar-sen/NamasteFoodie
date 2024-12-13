@@ -18,15 +18,15 @@ const RestaurantMenu = () => {
       ?.card;
 
   return (
-    <div className="menu">
-      <h1>{name}</h1>
+    <div className="m-4 p-4 border border-black bg-gray-100 shadow-lg">
+      <h1 className="font-bold py-4 text-lg">{name}</h1>
       <h2>{cuisines.join(" ,")}</h2>
       <h4>{costForTwoMessage}</h4>
-      <h2>Menu</h2>
+      <h2 className="font-bold py-4 text-lg">Menu</h2>
       <ul>
         {itemCards?.map((itemCard) => (
-          <li key={itemCard?.card.info?.id}>
-            {itemCard?.card.info?.name} {itemCard?.card?.info?.price}
+          <li className="p-1 m-1" key={itemCard?.card.info?.id}>
+            {itemCard?.card.info?.name} {"₹" + itemCard?.card?.info?.price}
           </li>
         ))}
       </ul>
