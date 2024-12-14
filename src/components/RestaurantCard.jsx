@@ -29,4 +29,22 @@ const RestaurantCard = (props) => {
   );
 };
 
+//HOC withOpenedRestaurantCard
+// HOC is a function which takes Component as argument and returns a enhanced component &
+// Component = Its a function which returns a JSX
+
+export const withOpenedRestaurantCard = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="absolute bg-black shadow-lg text-white m-1 p-1 rounded-lg">
+          {" "}
+          Open{" "}
+        </label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default RestaurantCard;

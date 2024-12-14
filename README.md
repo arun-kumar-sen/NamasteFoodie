@@ -102,3 +102,7 @@ componentDidUpdate
 It will create a separate bundles for the lazy loaded components:
 Ex: In our code we see different bundles for About & Grocery
 ![alt text](image.png)
+
+#### //Note -> If we use state for showItems and hanlde its click in this component (ResCategory) then it will be uncontrolled here,
+
+#### // so if we lift up the sate and use this showItems in parent Comp i.e RestaurantMenu then it will be controoled

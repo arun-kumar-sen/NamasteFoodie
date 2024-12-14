@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import React, { useContext, useEffect, useState } from "react";
+import RestaurantCard, { withOpenedRestaurantCard } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   // const [listOfRestaurants, setListOfRestaurants] = useState(resList);
@@ -17,6 +18,10 @@ const Body = () => {
 
   const [searchText, setSearchText] = useState("");
 
+  const HOCRestaurantCard = withOpenedRestaurantCard(RestaurantCard);
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
+
   const isOnline = useOnlineStatus();
 
   const fetchData = async () => {
@@ -24,10 +29,7 @@ const Body = () => {
 
     //"https://api.allorigins.win/raw?url=" + (used for CORS issue)
     const data = await fetch(
-      "https://api.allorigins.win/raw?url=" +
-        encodeURIComponent(
-          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9452387&lng=77.7115841&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-        )
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9452387&lng=77.7115841&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
     setListOfRestaurants(
@@ -93,6 +95,15 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+        <div className="m-4 p-4 flex items-center">
+          <label htmlFor="">User Name:</label>
+          <input
+            className="border border-black p-2"
+            type="text"
+            onChange={(e) => setUserName(e.target.value)}
+            value={loggedInUser}
+          />
+        </div>
       </div>
       <div className="flex flex-wrap">
         {filteredState?.map((restaurant) => (
@@ -100,7 +111,11 @@ const Body = () => {
             key={restaurant.info.id}
             to={"/restaurant/" + restaurant.info.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant?.info?.isOpen ? (
+              <HOCRestaurantCard resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>
