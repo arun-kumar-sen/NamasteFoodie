@@ -106,3 +106,69 @@ Ex: In our code we see different bundles for About & Grocery
 #### //Note -> If we use state for showItems and hanlde its click in this component (ResCategory) then it will be uncontrolled here,
 
 #### // so if we lift up the sate and use this showItems in parent Comp i.e RestaurantMenu then it will be controoled
+
+---
+
+### Redux
+
+1- Redux Store = Very big JS object and kept in global central place
+2- Slices = part of a redux store (ex: cart slice , user slice , theme slice )
+
+3- Redux says we can not modify slice data directly
+
+WRITE DATA
+
+\*\* CLICK -> DISPATCH AN ACTION -> CALSS REDUCER -> UPDATES SLICE DATA
+
+### so , When click on add button it DISPATCH an ACTION
+
+### That means it calls a function , and this FUNCTION will actually modify/UPDATES the cart data(slice)
+
+### and this FUNCTION is known as REDUCER
+
+READ DATA (Ex: added the cart item , now number of items should also change in that cart icon right)
+
+\*\* SELECTOR is used to read data from store and this SELECTOR will modify our react component.
+
+This phenomenon is know as SUBSCRIBING to the store
+
+so using SELECTOR we SUBSCRIBE
+
+![alt text](image-1.png)
+
+STEPS
+
+1-> Install @reduxjs/toolkit & react-redux
+2-> Build our store
+3-> Connect our store to our App
+4-> Create a slice
+5-> Dispatch(action)
+6-> read data using selector
+
+Note - > <Provider> is basically a bridge for react and redux (i.e importing from react-redux)
+
+// Vanilla(older) Redux => Cannot mutate states directly and we also need to return
+// const newState = [...state]
+// newState.push(action.payload)
+// return newState mandatory
+
+\*\*\*\* But in Redux-toolkit [ALWAYS MUTATE THE STATE] (newer Redux) mutating the state here , can directly mustate, Redux used immer library and behind the scene does the immutability
+state.items.push(action.payload) and return is also not mandatory;
+
+Note-
+
+#### Note-> Normal log will show proxy object and we cannot read it
+
+\*\* console.log(state);
+
+#### so use current in log to show data
+
+\*\* console.log(current(state));
+
+### Earlier we use reux thunk and middleware to make API calls
+
+### Now in redux tool kit we use RTK Query , to make any API calls
+
+### Go through this link to know about this
+
+https://redux-toolkit.js.org/tutorials/rtk-query
